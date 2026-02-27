@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raad Elite - Glow Edition</title>
+
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --primary-hsl: 270, 100%, 60%;
+  --primary-light-hsl: 270, 100%, 75%;
+  --background-dark: 255, 60%, 8%;
+  --surface-hsl: 260, 40%, 14%;
+  --text-main: 0, 0%, 100%;
+  --text-muted: 270, 20%, 70%;
+  --border-hsl: 270, 30%, 25%;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Segoe UI',sans-serif;
+  color:hsl(var(--text-main));
+  overflow-x:hidden;
+  background:hsl(var(--background-dark));
+  position:relative;
+}
+
+
+body::before,
+body::after{
+  content:"";
+  position:fixed;
+  width:800px;
+  height:800px;
+  border-radius:50%;
+  filter:blur(120px);
+  z-index:-1;
+  animation:floatGlow 12s infinite alternate ease-in-out;
+}
+
+body::before{
+  background:radial-gradient(circle, hsla(var(--primary-hsl),0.8) 0%, transparent 70%);
+  top:-200px;
+  left:-200px;
+}
+
+body::after{
+  background:radial-gradient(circle, hsla(var(--primary-light-hsl),0.7) 0%, transparent 70%);
+  bottom:-200px;
+  right:-200px;
+  animation-delay:4s;
+}
+
+@keyframes floatGlow{
+  0%{transform:translate(0,0) scale(1);}
+  50%{transform:translate(100px,50px) scale(1.1);}
+  100%{transform:translate(-50px,100px) scale(1);}
+}
+
+.container{width:90%;max-width:1400px;margin:auto;}
+
+header{
+  position:fixed;
+  width:100%;
+  top:0;
+  padding:20px 0;
+  background:rgba(20,0,40,0.5);
+  backdrop-filter:blur(15px);
+  z-index:1000;
+}
+/* Avatar */
+.avatar{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  overflow:hidden;
+  border:2px solid hsl(var(--primary-light-hsl));
+  box-shadow:0 0 15px hsla(var(--primary-hsl),0.7);
+  transition:.3s;
+}
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.avatar:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 25px hsla(var(--primary-light-hsl),1);
+}
+
+nav{display:flex;justify-content:space-between;align-items:center;}
+nav ul{list-style:none;display:flex;gap:30px;}
+nav a{text-decoration:none;color:hsl(var(--text-muted));transition:.3s;}
+nav a:hover{color:hsl(var(--primary-hsl));}
+
+nav div{
+  font-family:'UnifrakturCook',cursive;
+  font-size:1.8rem;
+  background:linear-gradient(270deg,#f5f5f5,#dcdcdc,#ffffff,#e0e0e0,#f5f5f5);
+  background-size:600% 100%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:shine 4s linear infinite;
+}
+@keyframes shine{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+.social-icons{display:flex;gap:15px;}
+.icon{
+  width:35px;
+  height:35px;
+  border-radius:8px;
+  background-size:60%;
+  background-repeat:no-repeat;
+  background-position:center;
+  border:1px solid hsl(var(--border-hsl));
+  box-shadow:0 0 5px hsla(var(--primary-hsl),0.4);
+  transition:.3s;
+}
+.icon:hover{
+  transform:scale(1.2);
+  box-shadow:0 0 20px hsla(var(--primary-light-hsl),0.9);
+}
+
+.icon.instagram{
+  background-image:url('https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg');
+  filter:brightness(0) invert(1);
+}
+.icon.chess{
+  background-image:url('https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/chessdotcom.svg');
+  filter:brightness(0) invert(1);
+}
+.icon.youtube{
+  background-image:url('https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg');
+  filter:brightness(0) invert(1);
+}
+.icon.tiktok{
+  background-image:url('https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tiktok.svg');
+  filter:brightness(0) invert(1);
+}
+
+section{
+  padding:120px 0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+}
+.hero{text-align:center;flex-direction:column;justify-content:center;}
+h1{font-size:3.5rem;margin-bottom:20px;}
+h2{font-size:2.2rem;margin-bottom:30px;}
+p{color:hsl(var(--text-muted));line-height:1.6;}
+.btn{
+  margin-top:30px;
+  padding:14px 40px;
+  border:none;
+  border-radius:12px;
+  background:hsl(var(--primary-hsl));
+  color:white;
+  cursor:pointer;
+  transition:.3s;
+  box-shadow:0 0 25px hsla(var(--primary-hsl),0.8);
+}
+.btn:hover{background:hsl(var(--primary-light-hsl));transform:translateY(-3px);}
+
+.hidden{opacity:0;transform:translateY(60px);transition:2s;}
+.show{opacity:1;transform:translateY(0);}
+
+.magic-text{
+  font-size:1.5rem;
+  opacity:0;
+  transform: translateY(60px) scale(0.95);
+  transition: all 1.5s ease;
+  background: linear-gradient(90deg, #ffffff, #dcdcdc, #f5f5f5, #ffffff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.magic-text.show{
+  opacity:1;
+  transform: translateY(0) scale(1);
+  animation: shimmer 3s linear infinite;
+}
+@keyframes shimmer{
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+
+/* Form */
+form{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  max-width:500px;
+  margin:auto;
+}
+input, textarea{
+  padding:15px;
+  border-radius:8px;
+  border:1px solid hsl(var(--border-hsl));
+  background:hsl(var(--surface-hsl));
+  color:white;
+}
+input:focus, textarea:focus{
+  outline:none;
+  border-color:hsl(var(--primary-hsl));
+}
+/* ===== VIDEOS SECTION ===== */
+
+.video-wrapper{
+  display:flex;
+  gap:40px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.video-card{
+  width:260px;
+  aspect-ratio:9/16;
+  border-radius:20px;
+  overflow:hidden;
+  background:hsl(var(--surface-hsl));
+  box-shadow:0 0 30px hsla(var(--primary-hsl),0.3);
+  transition:.4s;
+}
+
+.video-card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 0 40px hsla(var(--primary-light-hsl),0.6);
+}
+
+.video-card video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+#interactiveGrid{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-2;
+}
+</style>
+<script>
+window.addEventListener("DOMContentLoaded", function(){
+
+  // ===== Stop other videos =====
+  const allVideos = document.querySelectorAll(".video-card video");
+  allVideos.forEach(video => {
+    video.addEventListener("play", function() {
+      allVideos.forEach(otherVideo => {
+        if (otherVideo !== video) {
+          otherVideo.pause();
+          otherVideo.currentTime = 0;
+        }
+      });
+    });
+  });
+
+  // ===== Play audio once =====
+  let audioPlayed = false;
+  const audio = new Audio("voice-changer-2025-11-06-20-05.mp3");
+
+  function playAudioOnce() {
+    if (!audioPlayed) {
+      audio.play().catch(err => console.log("Audio play blocked:", err));
+      audioPlayed = true;
+    }
+  }
+
+  playAudioOnce();
+
+  const avatar = document.querySelector(".avatar");
+  if (avatar) {
+    avatar.addEventListener("click", playAudioOnce);
+  }
+
+});
+window.addEventListener("DOMContentLoaded", function(){
+
+  let audioPlayed = false;
+  const audio = new Audio("voice-changer-2025-11-06-20-05.mp3");
+
+  function playAudioOnce() {
+    if (!audioPlayed) {
+      audio.play().catch(err => console.log("Audio play blocked:", err));
+      audioPlayed = true;
+    }
+  }
+
+  // أي تفاعل أول على الصفحة
+  function firstInteraction() {
+    playAudioOnce();
+    window.removeEventListener("click", firstInteraction);
+    window.removeEventListener("touchstart", firstInteraction);
+  }
+
+  window.addEventListener("click", firstInteraction);
+  window.addEventListener("touchstart", firstInteraction);
+
+  // تشغيل عند الضغط على الأفاتار كخيار إضافي
+  const avatar = document.querySelector(".avatar");
+  if (avatar) {
+    avatar.addEventListener("click", playAudioOnce);
+  }
+
+});
+</script>
+
+</head>
+
+<body>
+
+<canvas id="interactiveGrid"></canvas>
+
+<header>
+  <div class="container">
+    <nav>
+      <div class="avatar">
+  <img src="1000040914.jpg" alt="Raad Avatar">
+</div>
+      <div>Raad Elite</div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/raad.elite" class="icon instagram" target="_blank"></a>
+        <a href="https://www.chess.com/member/RaadElite" class="icon chess" target="_blank"></a>
+        <a href="#" class="icon youtube"></a>
+        <a href="#" class="icon tiktok"></a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero hidden">
+  <div class="container">
+    <h1>Glowing Purple Experience</h1>
+    <p>Animated luminous background with interactive energy grid.</p>
+    <button class="btn">Explore Now</button>
+  </div>
+</section>
+<!-- قسم الصور -->
+<section class="hidden">
+  <div class="container" style="overflow:hidden; margin-top:50px;">
+    <h2 style="text-align:center;margin-bottom:30px;">صور مبهرة</h2>
+    <div class="image-carousel">
+      <div class="carousel-track">
+        <div class="carousel-item"><img src="1000020977.jpg" alt=""></div>
+        <div class="carousel-item"><img src="1000020995.jpg" alt=""></div> <!-- تم تبديلها -->
+        <div class="carousel-item"><img src="1000020979.jpg" alt=""></div>
+        <div class="carousel-item"><img src="1000020994.jpg" alt=""></div>
+        <div class="carousel-item"><img src="1000020978.jpg" alt=""></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.image-carousel{
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  display: flex;
+  scroll-behavior: smooth;
+  padding: 20px 0;
+}
+.image-carousel::-webkit-scrollbar{display:none;}
+
+.carousel-track{
+  display: flex;
+  gap: 30px;
+  animation: autoScroll 25s linear infinite;
+}
+.image-carousel:hover .carousel-track{
+  animation-play-state: paused;
+}
+
+.carousel-item{
+  flex: 0 0 auto;
+  aspect-ratio: 4/5;
+  width: 250px;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.carousel-item img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(180,150,255,0.5), 0 0 25px rgba(180,150,255,0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.carousel-item.active img{
+  transform: scale(1.15);
+  box-shadow: 0 0 45px rgba(180,150,255,0.9), 0 0 70px rgba(180,150,255,0.6);
+}
+
+@keyframes autoScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* ستكرر العناصر لاحقًا لتستمر الحركة */
+}
+</style>
+
+<script>
+// ضبط الصورة الأمامية وإعطاءها تأثير التكبير والظل
+const carousel = document.querySelector(".image-carousel");
+const items = document.querySelectorAll(".carousel-item");
+
+// عمل تكرار للعناصر ليظهر تأثير الدوران اللانهائي
+const track = document.querySelector(".carousel-track");
+track.innerHTML += track.innerHTML;
+
+function scaleAndGlow(){
+  const center = carousel.scrollLeft + carousel.offsetWidth / 2;
+  let closestDist = Infinity;
+  let activeItem = null;
+
+  items.forEach(item=>{
+    const itemCenter = item.offsetLeft + item.offsetWidth/2;
+    const distance = Math.abs(center - itemCenter);
+    const scale = Math.max(0.8, 1 - distance / 800);
+    item.style.transform = `scale(${scale})`;
+
+    item.classList.remove("active");
+    if(distance < closestDist){
+      closestDist = distance;
+      activeItem = item;
+    }
+  });
+
+  if(activeItem){
+    activeItem.classList.add("active");
+  }
+}
+
+// حدث التمرير المستمر
+carousel.addEventListener("scroll", scaleAndGlow);
+window.addEventListener("resize", scaleAndGlow);
+scaleAndGlow();
+</script>
+<!-- MAGIC VIDEOS -->
+<section class="hidden">
+  <div class="container">
+    <h2 style="text-align:center;margin-bottom:50px;">Magic Moments</h2>
+
+    <div class="video-wrapper">
+
+      <div class="video-card">
+        <video src="1214.mp4" controls playsinline></video>
+      </div>
+
+      <div class="video-card">
+        <video src="1223.mp4" controls playsinline></video>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- تقييمات المستخدمين -->
+<section class="hidden">
+  <div class="container">
+    <h2 style="text-align:center;margin-bottom:50px;">تقييمات حول مهارتي</h2>
+    <div class="reviews-wrapper" style="display:flex; gap:30px; justify-content:center; flex-wrap:wrap;">
+      
+      <div class="review-card">
+        <div class="review-avatar">
+          <img src="https://picsum.photos/id/1013/80/80" alt="Avatar">
+        </div>
+        <p>"موهبتك في تعديل الفيديوهات مذهلة! كل مشهد يبدو وكأنه سينمائي." </p>
+        <h4>- خالد</h4>
+      </div>
+      
+      <div class="review-card">
+        <div class="review-avatar">
+          <img src="https://picsum.photos/id/1011/80/80" alt="Avatar">
+          
+        </div>
+        <p>"عمل احترافي جدًا، الإضافات والتأثيرات التي تضيفها تجعل أي فيديو ينبض بالحياة." </p>
+        <h4>- ليلى</h4>
+      </div>
+      
+      <div class="review-card">
+        <div class="review-avatar">
+          <img src="https://picsum.photos/id/1012/80/80" alt="Avatar">
+          
+        </div>
+        <p>"أسلوبك في التحرير فريد، كل حركة وكأنها جزء من لوحة فنية متحركة!" </p>
+        <h4>- سامي</h4>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.review-card{
+  background:hsl(var(--surface-hsl));
+  color:hsl(var(--text-main));
+  padding:25px;
+  border-radius:20px;
+  width:280px;
+  min-height:220px;
+  box-shadow:0 0 25px hsla(var(--primary-hsl),0.4);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align:center;
+  font-family:'Segoe UI',sans-serif;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.review-avatar{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  overflow:hidden;
+  margin-bottom:15px;
+  border:2px solid hsl(var(--primary-light-hsl));
+  box-shadow:0 0 20px hsla(var(--primary-hsl),0.6);
+}
+
+.review-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.review-card:hover{
+  transform: translateY(-10px) scale(1.05);
+  box-shadow:0 0 50px hsla(var(--primary-light-hsl),0.8), 0 0 70px hsla(var(--primary-hsl),0.6);
+}
+
+.review-card h4{
+  margin-top:15px;
+  font-weight:700;
+  color:hsl(var(--primary-hsl));
+}
+</style>
+
+<!-- REGISTER -->
+<section class="hidden">
+  <div class="container">
+    <h2 style="text-align:center;">التسجيل الآن</h2>
+    <form>
+      <input type="text" placeholder="الاسم الكامل">
+      <input type="email" placeholder="البريد الإلكتروني">
+      <textarea rows="4" placeholder="رسالتك"></textarea>
+      <button class="btn">إرسال</button>
+    </form>
+  </div>
+</section>
+
+<script>
+window.addEventListener("DOMContentLoaded", function(){
+
+const canvas = document.getElementById("interactiveGrid");
+const ctx = canvas.getContext("2d");
+
+let w,h;
+function resize(){
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+const spacing = 60;
+let points=[];
+
+function createGrid(){
+  points=[];
+  const cols=Math.floor(w/spacing);
+  const rows=Math.floor(h/spacing);
+  for(let y=0;y<=rows;y++){
+    for(let x=0;x<=cols;x++){
+      points.push({x:x*spacing,y:y*spacing,ox:x*spacing,oy:y*spacing,vx:0,vy:0});
+    }
+  }
+}
+createGrid();
+
+let mouse={x:0,y:0};
+window.addEventListener("mousemove",e=>{
+  mouse.x=e.clientX;
+  mouse.y=e.clientY;
+});
+
+function animate(){
+  ctx.clearRect(0,0,w,h);
+  for(let p of points){
+    let dx=mouse.x-p.x;
+    let dy=mouse.y-p.y;
+    let dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<120){
+      let force=(120-dist)/120;
+      p.vx-=dx*force*0.02;
+      p.vy-=dy*force*0.02;
+    }
+    p.vx+=(p.ox-p.x)*0.01;
+    p.vy+=(p.oy-p.y)*0.01;
+    p.vx*=0.92;
+    p.vy*=0.92;
+    p.x+=p.vx;
+    p.y+=p.vy;
+  }
+
+  ctx.strokeStyle="rgba(180,150,255,0.25)";
+  for(let i=0;i<points.length;i++){
+    for(let j=i+1;j<points.length;j++){
+      let dx=points[i].x-points[j].x;
+      let dy=points[i].y-points[j].y;
+      let dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<spacing+5){
+        ctx.beginPath();
+        ctx.moveTo(points[i].x,points[i].y);
+        ctx.lineTo(points[j].x,points[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(animate);
+}
+animate();
+
+/* Scroll animation */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+      if(entry.target.classList.contains("magic-text")){
+        entry.target.classList.add("show");
+      }
+    }else{
+      entry.target.classList.remove("show");
+    }
+  });
+},{threshold:0.2});
+
+document.querySelectorAll(".hidden,.magic-text").forEach(el=>observer.observe(el));
+
+});
+</script>
+
+</body>
+</html>
